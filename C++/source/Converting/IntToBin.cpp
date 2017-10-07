@@ -4,21 +4,26 @@ Integer to Binary conversion algorithm
 #include <vector>
 #include <iostream>
 
-void IntToBin(int _integer, std::vector<char> &bin)
+std::vector<char> IntToBin(int integer)
 {
-    if (!_integer)
-        return;
-    bin.push_back(_integer%2);
-    IntToBin(_integer/2, bin);
+    std::vector<char> tmp;
+    while (integer)
+    {
+        tmp.push_back(integer%2);
+        integer /= 2;
+    }
+    return tmp;
 }
 
 int main()
 {
-    std::vector<char> temp;
-    int a = 10;
-    IntToBin(a, temp);
-
-    std::cout << temp[0]+0x30 << '\n';
+    int a = 255;
+    std::vector<char> temp = IntToBin(a);
+    
+    for (char i : temp)
+    {
+        std::cout << (char) i + 0x00 << '\n';
+    }
 
     return 0;
 }
