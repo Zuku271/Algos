@@ -26,7 +26,7 @@ double norm(const std::array<double, S> &x, const std::array<double, S> &y)
     {
         result += (x[i] - y[i])*(x[i] - y[i]);
     }
-    return std::move(sqrt(result));
+    return sqrt(result);
 }
 
 template <unsigned int S>
@@ -99,7 +99,7 @@ std::array<double, S> operator+(const std::array<double, S> &x, const std::array
     {
         result[i] = x[i] + y[i];
     }
-    return std::move(result);
+    return result;
 }
 
 template <unsigned int S>
@@ -111,7 +111,7 @@ std::array<double, S> operator-(const std::array<double, S> &x, const std::array
     {
         result[i] = x[i] - y[i];
     }
-    return std::move(result);
+    return result;
 }
 
 template <unsigned int S>
@@ -123,7 +123,7 @@ std::array<double, S> operator*(const double x, const std::array<double, S> &y)
     {
         result[i] = x * y[i];
     }
-    return std::move(result);
+    return result;
 }
 
 int main()
