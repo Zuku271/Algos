@@ -134,7 +134,7 @@ int main()
     const std::array<double, S> b = {9, 1};
     std::array<double, S> x;
 
-
+    x = steepestdescent(A, b);
 
     return 0;
 }
