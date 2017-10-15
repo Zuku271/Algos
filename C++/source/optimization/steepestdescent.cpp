@@ -22,7 +22,7 @@ template <unsigned int S>
 double norm(const std::array<double, S> &x, const std::array<double, S> &y)
 {
     double result = 0;
-    for (int i=0; i<S; ++i)
+    for (unsigned int i=0; i<S; ++i)
     {
         result += (x[i] - y[i])*(x[i] - y[i]);
     }
@@ -34,7 +34,7 @@ std::array<double, S> steepestdescent(const std::array<const std::array<double, 
     const double e = 0.0001, const double step = 0.1, const unsigned int IterMax = 10000)
 {
     std::array<double, S> x = {0.0};
-    int k = 0;
+    unsigned int k = 0;
 
     do
     {
@@ -79,9 +79,9 @@ std::array<double, S> operator*(const std::array<const std::array<double, S>, S>
 {
     std::array<double, S> result = {0.0};
 
-    for (int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < S; ++i)
     {
-        for (int j = 0; j < S; ++j)
+        for (unsigned int j = 0; j < S; ++j)
         {
             result[i] += A[i][j] * b[j];
         }
@@ -95,7 +95,7 @@ std::array<double, S> operator+(const std::array<double, S> &x, const std::array
 {
     std::array<double, S> result;
 
-    for (int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < S; ++i)
     {
         result[i] = x[i] + y[i];
     }
@@ -107,7 +107,7 @@ std::array<double, S> operator-(const std::array<double, S> &x, const std::array
 {
     std::array<double, S> result;
 
-    for (int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < S; ++i)
     {
         result[i] = x[i] - y[i];
     }
@@ -119,7 +119,7 @@ std::array<double, S> operator*(const double x, const std::array<double, S> &y)
 {
     std::array<double, S> result;
 
-    for (int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < S; ++i)
     {
         result[i] = x * y[i];
     }
