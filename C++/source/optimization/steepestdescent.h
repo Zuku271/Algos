@@ -15,46 +15,23 @@ O(2*N), where N is a size of matrix
 */
 
 #include <iostream>
-#include <array>
+#include <vector>
 #include <math.h>
 
 
-template <unsigned int S>
-double norm(const std::array<double, S> &x, const std::array<double, S> &y)
+double norm(const std::vector<double> &x, const std::vector<double> &y)
 {
     double result = 0;
-    for (unsigned int i=0; i<S; ++i)
+    for (unsigned int i=0; i<x.size(); ++i)
     {
         result += (x[i] - y[i])*(x[i] - y[i]);
     }
     return sqrt(result);
 }
 
-template <unsigned int S>
-std::array<double, S> steepestdescent(const std::array<const std::array<double, S>, S> &A, const std::array<double, S> &b,
-    const double e = 0.00001, const double step = 0.1, const unsigned int IterMax = 1000000)
+std::ostream &operator<<(std::ostream &stream, const std::vector<std::vector<double>> &A)
 {
-    std::array<double, S> x = {0.0};
-    unsigned int k = 0;
-
-    do
-    {
-        std::array<double, S> xp = x;
-        std::array<double, S> residual = b - A * xp;
-        x = x + step * residual;
-        if (norm(x, xp) < e)
-            break;
-        k += 1;
-    }
-    while (k < IterMax);
-
-    return x;
-}
-
-template <unsigned int S>
-std::ostream &operator<<(std::ostream &stream, const std::array<const std::array<double, S>, S> &A)
-{
-    for (std::array<double, S> tmp : A)
+    for (std::vector<double> tmp : A)
     {
         for (double i : tmp)
         {
@@ -65,8 +42,7 @@ std::ostream &operator<<(std::ostream &stream, const std::array<const std::array
     return stream;
 }
 
-template <unsigned int S>
-std::ostream &operator<<(std::ostream &stream, const std::array<double, S> &x)
+std::ostream &operator<<(std::ostream &stream, const std::vector<double> &x)
 {
     for (double i : x)
     {
@@ -75,14 +51,13 @@ std::ostream &operator<<(std::ostream &stream, const std::array<double, S> &x)
     return stream;
 }
 
-template <unsigned int S>
-std::array<double, S> operator*(const std::array<const std::array<double, S>, S> &A, const std::array<double, S> &b)
+std::vector<double> operator*(const std::vector<std::vector<double>> &A, const std::vector<double> &b)
 {
-    std::array<double, S> result = {0.0};
+    std::vector<double> result = {0.0};
 
-    for (unsigned int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < A.size(); ++i)
     {
-        for (unsigned int j = 0; j < S; ++j)
+        for (unsigned int j = 0; j < b.size(); ++j)
         {
             result[i] += A[i][j] * b[j];
         }
@@ -91,38 +66,55 @@ std::array<double, S> operator*(const std::array<const std::array<double, S>, S>
     return result;
 }
 
-template <unsigned int S>
-std::array<double, S> operator+(const std::array<double, S> &x, const std::array<double, S> &y)
+std::vector<double> operator+(const std::vector<double> &x, const std::vector<double> &y)
 {
-    std::array<double, S> result;
+    std::vector<double> result;
 
-    for (unsigned int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < x.size(); ++i)
     {
         result[i] = x[i] + y[i];
     }
     return result;
 }
 
-template <unsigned int S>
-std::array<double, S> operator-(const std::array<double, S> &x, const std::array<double, S> &y)
+std::vector<double> operator-(const std::vector<double> &x, const std::vector<double> &y)
 {
-    std::array<double, S> result;
+    std::vector<double> result;
 
-    for (unsigned int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < x.size(); ++i)
     {
         result[i] = x[i] - y[i];
     }
     return result;
 }
 
-template <unsigned int S>
-std::array<double, S> operator*(const double x, const std::array<double, S> &y)
+std::vector<double> operator*(const double x, const std::vector<double> &y)
 {
-    std::array<double, S> result;
+    std::vector<double> result;
 
-    for (unsigned int i = 0; i < S; ++i)
+    for (unsigned int i = 0; i < y.size(); ++i)
     {
         result[i] = x * y[i];
     }
     return result;
+}
+
+std::vector<double> steepestdescent(const std::vector<std::vector<double>> &A, const std::vector<double> &b,
+    const double e = 0.00001, const double step = 0.1, const unsigned int IterMax = 1000000)
+{
+    std::vector<double> x = {0.0};
+    unsigned int k = 0;
+
+    do
+    {
+        std::vector<double> xp = x;
+        std::vector<double> residual = b - A * xp;
+        x = x + step * residual;
+        if (norm(x, xp) < e)
+            break;
+        k += 1;
+    }
+    while (k < IterMax);
+
+    return x;
 }
